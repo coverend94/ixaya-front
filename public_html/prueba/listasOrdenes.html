@@ -1,0 +1,219 @@
+<body>
+
+
+    <!-- start -->
+    <div class="row">
+        <div class="col-md-12 stretch-card">
+            <div class="card ">
+                <div class="card-body">
+                    <button type="button" class='btn btn-primary' data-bs-toggle="modal"
+                        data-bs-target="#modalOrdenes">Nuevo</button>
+                    <br><br>
+
+                    <input class="form-control" id="txtSearch" onchange="busqueda()" placeholder="Busqueda"
+                        type="date">
+                    <br>
+                    <div class="material-datatables">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="sticky-top">
+                                    <tr>
+                                        <th class="h6">Orden</th>
+                                        <th class="h6">Direccion</th>
+                                        <th class="h6">Total</th>
+                                        <th class="h6">Fecha</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+
+                                <tbody id="tbOrdenes">
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+    <style type="text/css">
+        thead tr th {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .table-responsive {
+            height: 290px;
+        }
+    </style>
+    <!-- end container-->
+
+    <!-- Modal Nueva orden -->
+    <div class="modal fade" id="modalOrdenes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro Orden</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="modal-body">
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Telefono:</label>
+                            <input id="txtTelefono" type="text" class="form-control">
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Calle:</label>
+                            <input id="txtCalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Colonia:</label>
+                            <input id="txtColonia" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">CP:</label>
+                            <input id="txtCp" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Ciudad:</label>
+                            <input id="txtCiudad" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Estado:</label>
+                            <input id="txtEstado" type="text" class="form-control">
+                        </div>
+                        <div class="form-group label-floating">
+                            <div class="row">
+                                <label class="control-label">Productos: </label>
+                                <div class="col-md-8">
+                                    
+                                    <select class="form-select" id="comboProducto"></select>
+                                </div>
+                                <div class="col-md-3">
+                                    <button onclick="agregarProduducto()" class="btn btn-success">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="productosList" class="row">
+                            
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button onclick="guardarOrden()" type="submit" class="btn btn-primary">Guardar
+                            cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--MODAL Detalle-->
+    <div class="modal fade" id="modalDetalleOrden" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detalle Orden</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="modal-body">
+                        <input id="txtIdProductoUpdate" type="text" class="form-control" hidden>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Orden:</label>
+                            <input id="txtOrden" type="text" class="form-control">
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Fecha:</label>
+                            <input id="txtFechaOrden" type="text" class="form-control">
+                        </div>
+                        
+                        <div class="form-group label-floating">
+                            <label class="control-label">Telefono:</label>
+                            <input id="txtTelDetalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Calle:</label>
+                            <input id="txtCalleDetalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Colonia:</label>
+                            <input id="txtColDetalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Ciudad:</label>
+                            <input id="txtCiudadDetalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Estado:</label>
+                            <input id="txtEstadoDetalle" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Subtotal:</label>
+                            <input id="txtSubtotal" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group label-floating">
+                            <label class="control-label">Total:</label>
+                            <input id="txtTotal" type="text" class="form-control">
+                        </div>
+                        <div class="form-group label-floating">
+                            <label class="control-label">Descuento:</label>
+                            <input id="txtDescuento" type="text" class="form-control">
+                        </div>
+                        <div class="row">
+                            
+                                    <table class="table">
+                                        <thead >
+                                            <tr>
+                                                <th class="h6">Producto</th>
+                                                <th class="h6">Cant</th>
+                                                <th class="h6">Precio</th>
+                                            </tr>
+                                        </thead>        
+                                        <tbody id="tbProductosOrdenes">
+                                            
+                                        </tbody>
+                                        
+                                    </table>
+                               
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+
+</body>
